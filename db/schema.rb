@@ -10,17 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_20_014042) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_20_023511) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "itineraries", force: :cascade do |t|
     t.string "status"
-    t.string "dia"
-    t.string "hora_salida"
-    t.string "hora_llegada"
+    t.string "day"
+    t.string "h_start"
+    t.string "h_end"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_itineraries_on_user_id"
   end
 
   create_table "places", force: :cascade do |t|
@@ -30,10 +32,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_20_014042) do
   end
 
   create_table "section_groups", force: :cascade do |t|
-    t.string "n_asientos"
-    t.string "presio"
-    t.string "hora_salida"
-    t.string "hora_llegada"
+    t.string "n_seats"
+    t.string "cost"
+    t.string "h_start"
+    t.string "h_end"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -42,11 +44,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_20_014042) do
     t.string "name"
     t.string "mail"
     t.string "passeword"
-    t.string "telefono"
-    t.string "descripcion"
-    t.string "datos"
+    t.string "phone"
+    t.string "description"
+    t.string "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "itineraries", "users"
 end

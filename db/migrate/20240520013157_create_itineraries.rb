@@ -4,9 +4,9 @@ class CreateItineraries < ActiveRecord::Migration[7.1]
       # t.string :user_id
 
       t.string :status # define si es pasagero o conductor
-      t.string :dia
-      t.string :hora_salida
-      t.string :hora_llegada
+      t.string :day
+      t.string :h_start
+      t.string :h_end
 
       # t.string :lugar_salida
       # t.string :lugar_llegada
