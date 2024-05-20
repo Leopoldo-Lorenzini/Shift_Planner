@@ -1,0 +1,2 @@
+class SectionGroup < ApplicationRecord
+end
