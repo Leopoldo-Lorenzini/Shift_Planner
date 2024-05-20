@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_20_024721) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_20_170847) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_20_024721) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.bigint "starting_place_id", null: false
+    t.bigint "ending_place_id", null: false
+    t.index ["ending_place_id"], name: "index_itineraries_on_ending_place_id"
+    t.index ["starting_place_id"], name: "index_itineraries_on_starting_place_id"
     t.index ["user_id"], name: "index_itineraries_on_user_id"
   end
 
@@ -39,6 +43,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_20_024721) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.bigint "starting_place_id", null: false
+    t.bigint "ending_place_id", null: false
+    t.index ["ending_place_id"], name: "index_section_groups_on_ending_place_id"
+    t.index ["starting_place_id"], name: "index_section_groups_on_starting_place_id"
     t.index ["user_id"], name: "index_section_groups_on_user_id"
   end
 
@@ -53,6 +61,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_20_024721) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "itineraries", "places", column: "ending_place_id"
+  add_foreign_key "itineraries", "places", column: "starting_place_id"
   add_foreign_key "itineraries", "users"
+  add_foreign_key "section_groups", "places", column: "ending_place_id"
+  add_foreign_key "section_groups", "places", column: "starting_place_id"
   add_foreign_key "section_groups", "users"
 end
