@@ -6,13 +6,13 @@
   <body>
     <h2>Iniciar sesión</h2>
 
-    <%= form_for(:user, url: login_path) do |f| %>
-      <% if flash[:alert] %>
-        <div class="alert alert-danger" role="alert">
-          <%= flash[:alert] %>
-        </div>
-      <% end %>
+    <% if @error_message %>
+      <div class="alert alert-danger" role="alert">
+        <%= @error_message %>
+      </div>
+    <% end %>
 
+    <%= form_for(:user, url: login_path) do |f| %>
       <div class="form-group">
         <%= f.label :email %>
         <%= f.email_field :email, class: "form-control" %>

@@ -1,6 +1,4 @@
 class SessionsController < ApplicationController
-  def new
-  end
 
   def create
     user = User.find_by(mail: params[:mail])
@@ -8,15 +6,17 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       session[:user_signed_in] = true 
       redirect_to root_path, notice: "Inicio de sesión exitoso"
+      puts "Usuario encontrado"
     else
       flash.now[:alert] = "Credenciales inválidas"
       render :new
+      puts "Usuario no encontrado"
     end
   end
 
+
   def destroy
     session[:user_id] = nil
-    session[:user_signed_in] = false
     redirect_to root_path, notice: "Cierre de sesión exitoso"
   end
 end

@@ -10,7 +10,7 @@ users = []
   users << User.create(
     name: "User #{i+1}",
     mail: "user#{i+1}@example.com",
-    password: "password#{i+1}",
+    password: "123456",
     phone: "123-456-789#{i}",
     description: "Description for user #{i+1}",
     data: "Data #{i+1}"
