@@ -9,7 +9,7 @@ users = []
 5.times do |i|
   users << User.create(
     name: "User #{i+1}",
-    mail: "user#{i+1}@example.com",
+    email: "user#{i+1}@example.com",
     password: "123456",
     phone: "123-456-789#{i}",
     description: "Description for user #{i+1}",
