@@ -49,4 +49,5 @@ end
     starting_place: places.sample,
     ending_place: places.sample
   )
+  
 end
