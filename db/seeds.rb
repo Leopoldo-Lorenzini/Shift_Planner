@@ -10,7 +10,7 @@ users = []
   users << User.create(
     name: "User #{i+1}",
     mail: "user#{i+1}@example.com",
-    passeword: "password#{i+1}",
+    password: "password#{i+1}",
     phone: "123-456-789#{i}",
     description: "Description for user #{i+1}",
     data: "Data #{i+1}"
@@ -19,7 +19,7 @@ end
 
 # Crear lugares
 places = []
-5.times do |i|
+2.times do |i|
   places << Place.create(
     name: "Place #{i+1}"
   )
@@ -28,10 +28,10 @@ end
 # Crear itinerarios
 10.times do |i|
   Itinerary.create(
-    status: ["planned", "in_progress", "completed"].sample,
+    status: ["Conductor", "Pasagero"].sample,
     day: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].sample,
-    h_start: "08:00",
-    h_end: "17:00",
+    h_start: "07:00",
+    h_end: "08:30",
     user: users.sample,
     starting_place: places.sample,
     ending_place: places.sample
@@ -41,13 +41,13 @@ end
 # Crear grupos de secciones
 10.times do |i|
   SectionGroup.create(
-    n_seats: rand(1..100).to_s,
-    cost: rand(50..500).to_s,
-    h_start: "09:00",
-    h_end: "18:00",
+    n_seats: rand(1..10).to_s,
+    cost: rand(1000..3000).to_s,
+    h_start: "07:00",
+    h_end: "08:30",
     user: users.sample,
     starting_place: places.sample,
     ending_place: places.sample
   )
-  
+
 end
