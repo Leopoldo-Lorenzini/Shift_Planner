@@ -10,7 +10,7 @@ users = []
   users << User.create(
     name: "User #{i+1}",
     mail: "user#{i+1}@example.com",
-    passeword: "password#{i+1}",
+    password: "password#{i+1}",
     phone: "123-456-789#{i}",
     description: "Description for user #{i+1}",
     data: "Data #{i+1}"
@@ -28,7 +28,7 @@ end
 # Crear itinerarios
 10.times do |i|
   Itinerary.create(
-    status: ["Conductor", "Pasagero"].sample,
+    status: ["Conductor", "Pasajero"].sample,
     day: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].sample,
     h_start: "07:00",
     h_end: "08:30",
