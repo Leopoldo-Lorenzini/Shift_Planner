@@ -31,6 +31,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
+      margin-bottom: 20px;
     }
     th, td {
       border: 1px solid #ddd;
@@ -48,12 +49,60 @@
       color: white;
       padding: 10px 20px;
       text-decoration: none;
-      border-radius: 5px;
+      border-radius: 4px;
       display: inline-block;
       margin-top: 10px;
     }
     .btn-secondary {
       background-color: #6c757d;
+    }
+    .itinerary {
+      margin-bottom: 20px;
+    }
+    .form-container {
+      width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .form-container input[type="text"],
+    .form-container input[type="password"],
+    .form-container textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 20px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .form-container button {
+      background-color: #4caf50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+    .form-container button:hover {
+      background-color: #45a049;
+    }
+    .active-status {
+      padding: 5px 10px;
+      border-radius: 4px;
+      color: white;
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .active-status.active {
+      background-color: #28a745;
+    }
+    .active-status.inactive {
+      background-color: #dc3545;
     }
   </style>
 </head>
@@ -71,53 +120,57 @@
     <div class="itineraries" id="viaje">
       <h2>Itinerarios</h2>
       <% if @itineraries.any? %>
-        <table>
-          <tr>
-            <th>Itinerario</th>
-            <th>Inicio</th>
-            <th>Horario</th>
-            <th>Lugar</th>
-          </tr>
-          <% @itineraries.each_with_index do |itinerary, index| %>
-            <tr>
-              <td rowspan="2">Itinerario <%= index + 1 %></td>
-              <td>Inicio</td>
-              <td><%= itinerary.h_start %></td>
-              <td><%= itinerary.starting_place&.name || 'No asignado' %></td>
-            </tr>
-            <tr>
-             
-            <td>Fin</td>
-            <td><%= itinerary.h_end %></td>
-            <td><%= itinerary.ending_place&.name || 'No asignado' %></td>
-          </tr>
-          <% if itinerary.status == 'Piloto' %>
-          <tr>
-            <td colspan="4">
+        <% @itineraries.each do |itinerary| %>
+          <div class="itinerary">
+            <div class="active-status <%= itinerary.is_active ? 'active' : 'inactive' %>">
+              <%= itinerary.is_active ? 'Activo' : 'Inactivo' %>
+            </div>
+            <table>
+              <tr>
+                <th colspan="4"><%= itinerary.day %></th>
+              </tr>
+              <tr>
+                <th>Inicio</th>
+                <th>Horario</th>
+                <th>Lugar</th>
+              </tr>
+              <tr>
+                <td>Inicio</td>
+                <td><%= itinerary.h_start %></td>
+                <td><%= itinerary.starting_place&.name || 'No asignado' %></td>
+              </tr>
+              <tr>
+                <td>Fin</td>
+                <td><%= itinerary.h_end %></td>
+                <td><%= itinerary.ending_place&.name || 'No asignado' %></td>
+              </tr>
+            </table>
+            <% if itinerary.status == 'Conductor' %>
               <div class="new-section-group-btn">
                 <%= link_to 'Crear nuevo viaje', new_section_group_path(itinerary_id: itinerary.id), class: 'btn btn-secondary' %>
               </div>
-            </td>
-          </tr>
-          <% end %>
+            <% end %>
+            <div class="toggle-active-btn">
+              <%= button_to 'Cambiar estado', toggle_active_itinerary_path(itinerary), method: :post, class: 'btn btn-secondary' %>
+            </div>
+          </div>
         <% end %>
-      </table>
-    <% else %>
-      <p>No tienes itinerarios registrados.</p>
-    <% end %>
-    <div class="new-itinerary-btn">
-      <%= link_to 'Crear nuevo itinerario', new_itinerary_path, class: 'btn btn-primary' %>
+      <% else %>
+        <p>No tienes itinerarios registrados.</p>
+      <% end %>
+      <div class="new-itinerary-btn">
+        <%= link_to 'Crear nuevo itinerario', new_itinerary_path, class: 'btn btn-primary' %>
+      </div>
     </div>
+  <% else %>
+    <p>No se ha encontrado el usuario.</p>
+  <% end %>
+
+  <%= render 'shared/navbar' %>
+
+  <div class="container mt-4">
+    <%= yield %>
   </div>
-<% else %>
-  <p>No se ha encontrado el usuario.</p>
-<% end %>
-
-<%= render 'shared/navbar' %>
-
-<div class="container mt-4">
-  <%= yield %>
-</div>
 
 </body>
 </html>

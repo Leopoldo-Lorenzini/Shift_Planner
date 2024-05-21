@@ -1,6 +1,8 @@
 class ItinerariesController < ApplicationController
     before_action :require_login
-  
+    before_action :set_itinerary, only: [:toggle_active]
+
+
     def new
       @itinerary = Itinerary.new
       @places = Place.all
@@ -17,6 +19,12 @@ class ItinerariesController < ApplicationController
         render :new
       end
     end
+
+    def toggle_active
+      @itinerary.update(is_active: !@itinerary.is_active)
+      redirect_to request.referrer
+    end
+    
   
     private
   
@@ -35,5 +43,8 @@ class ItinerariesController < ApplicationController
     def user_signed_in?
       !current_user.nil?
     end
+
+    def set_itinerary
+      @itinerary = Itinerary.find(params[:id])
+    end
   end
-  
