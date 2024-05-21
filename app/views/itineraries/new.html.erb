@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nuevo Itinerario</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Crear Nuevo Itinerario</h1>
+
+    <%= form_with(model: @itinerary, local: true) do |form| %>
+
+        <div class="form-group">
+            <%= form.label :status %>
+            <%= form.select :status, status_options, prompt: 'Selecciona que seras', class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+            <%= form.label :day %>
+            <%= form.select :day, day_options, prompt: 'Selecciona un día', class: 'form-control' %>
+        </div>
+
+      
+        <div class="form-group">
+            <%= form.label :h_start %>
+            <%= form.select :h_start, hour_options, prompt: 'Selecciona una hora de inicio', class: 'form-control' %>
+        </div>
+      
+        <div class="form-group">
+            <%= form.label :h_end %>
+            <%= form.select :h_end, hour_options, prompt: 'Selecciona una hora de fin', class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :starting_place_id, 'Lugar de inicio' %>
+          <%= form.collection_select :starting_place_id, @places, :id, :name, prompt: 'Selecciona el lugar de inicio', class: 'form-control' %>
+        </div>
+      
+        <div class="form-group">
+          <%= form.label :ending_place_id, 'Lugar de fin' %>
+          <%= form.collection_select :ending_place_id, @places, :id, :name, prompt: 'Selecciona el lugar de fin', class: 'form-control' %>
+        </div>
+      
+        <div class="form-group">
+          <%= form.submit 'Crear Itinerario', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+  </div>
+
+  <%= render 'shared/navbar' %>
+
+  <div class="container mt-4">
+    <%= yield %>
+  </div>
+</body>
+</html>
