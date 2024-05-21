@@ -145,7 +145,7 @@
                 <td><%= itinerary.ending_place&.name || 'No asignado' %></td>
               </tr>
             </table>
-            <% if itinerary.status == 'Conductor' %>
+            <% if itinerary.status == 'Piloto' %>
               <div class="new-section-group-btn">
                 <%= link_to 'Crear nuevo viaje', new_section_group_path(itinerary_id: itinerary.id), class: 'btn btn-secondary' %>
               </div>
