@@ -50,6 +50,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_21_160100) do
     t.string "cost"
     t.string "h_start"
     t.string "h_end"
+    t.string "day"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false

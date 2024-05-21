@@ -25,22 +25,27 @@
 
   <div class="field">
     <%= form.label :h_start %>
-    <%= form.text_field :h_start %>
+    <%= form.text_field :h_start, value: @section_group.h_start, readonly: true %>
   </div>
 
   <div class="field">
     <%= form.label :h_end %>
-    <%= form.text_field :h_end %>
+    <%= form.text_field :h_end, value: @section_group.h_end, readonly: true %>
   </div>
 
   <div class="field">
-    <%= form.label :starting_place_id %>
-    <%= form.collection_select :starting_place_id, Place.all, :id, :name %>
+    <%= form.label :day %>
+    <%= form.text_field :day, value: @section_group.day, readonly: true %>
   </div>
 
   <div class="field">
-    <%= form.label :ending_place_id %>
-    <%= form.collection_select :ending_place_id, Place.all, :id, :name %>
+    <%= form.label :starting_place_id  %>
+    <%= form.text_field :starting_place_id , value: @section_group.starting_place_id , readonly: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ending_place_id  %>
+    <%= form.text_field :ending_place_id  , value: @section_group.ending_place_id  , readonly: true %>
   </div>
 
   <div class="actions">
@@ -48,4 +53,9 @@
   </div>
 <% end %>
 
-<%= link_to 'Volver', section_groups_path %>
+
+<%= render 'shared/navbar' %>
+
+  <div class="container mt-4">
+    <%= yield %>
+  </div>

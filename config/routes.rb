@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create]
   get 'perfil', to: 'home#index'
   get 'viaje', to: 'home#viajes'
-  get 'global', to: 'home#index'
+  get 'global', to: 'home#global'
 
   resources :itineraries, only: [:new, :create]
   resources :section_groups

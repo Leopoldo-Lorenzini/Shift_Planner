@@ -6,6 +6,7 @@ class CreateSectionGroups < ActiveRecord::Migration[7.1]
       t.string :cost
       t.string :h_start
       t.string :h_end
+      t.string :day
 
       t.timestamps
     end

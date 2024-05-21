@@ -16,6 +16,18 @@ class HomeController < ApplicationController
     @passenger_trips = SectionGroup.joins(:memberships).where(memberships: { user_id: @user.id }) || []
   end
 
+  def global
+    @user = current_user
+    @mode = params[:mode] || 'llegada' 
+
+    if @mode == 'llegada'
+      @filtered_groups = filter_arrival_groups
+    elsif @mode == 'salida'
+      @filtered_groups = filter_departure_groups
+    end
+  end
+
+
   private
 
   def require_login
@@ -30,6 +42,16 @@ class HomeController < ApplicationController
 
   def user_signed_in?
     !current_user.nil?
+  end
+
+  def filter_arrival_groups
+    arrival_itineraries = @user.itineraries.where(status: 'Pasajero')
+    SectionGroup.where(h_end: arrival_itineraries.pluck(:h_end), day: arrival_itineraries.pluck(:day))
+  end
+
+  def filter_departure_groups
+    departure_itineraries = @user.itineraries.where(status: 'Pasajero')
+    SectionGroup.where(h_start: departure_itineraries.pluck(:h_start), day: departure_itineraries.pluck(:day))
   end
 
 end
