@@ -1,13 +1,10 @@
 class HomeController < ApplicationController
   before_action :require_login
+  helper_method :filter_groups  
 
   def index
     @user = current_user
-    if @user
-      @itineraries = @user.itineraries
-    else
-      @itineraries = []
-    end
+    @itineraries = @user ? @user.itineraries : []
   end
 
   def viajes
@@ -18,24 +15,14 @@ class HomeController < ApplicationController
 
   def global
     @user = current_user
-    @mode = params[:mode] || 'llegada' 
-
-    if @mode == 'llegada'
-      @filtered_groups = filter_arrival_groups
-    elsif @mode == 'salida'
-      @filtered_groups = filter_departure_groups
-    end
-
+    @mode = params[:mode] || 'llegada'
     @active_itineraries = @user.itineraries.where(is_active: true)
   end
-
 
   private
 
   def require_login
-    unless user_signed_in?
-      redirect_to login_path, alert: 'Debes iniciar sesión para acceder a esta página'
-    end
+    redirect_to login_path, alert: 'Debes iniciar sesión para acceder a esta página' unless user_signed_in?
   end
 
   def current_user
@@ -46,14 +33,11 @@ class HomeController < ApplicationController
     !current_user.nil?
   end
 
-  def filter_arrival_groups
-    arrival_itineraries = @user.itineraries.where(status: 'Pasajero')
-    SectionGroup.where(h_end: arrival_itineraries.pluck(:h_end), day: arrival_itineraries.pluck(:day))
+  def filter_groups(itinerary, mode)
+    if mode == 'llegada'
+      SectionGroup.where(h_end: itinerary.h_end, day: itinerary.day)
+    else
+      SectionGroup.where(h_start: itinerary.h_start, day: itinerary.day)
+    end
   end
-
-  def filter_departure_groups
-    departure_itineraries = @user.itineraries.where(status: 'Pasajero')
-    SectionGroup.where(h_start: departure_itineraries.pluck(:h_start), day: departure_itineraries.pluck(:day))
-  end
-
 end
