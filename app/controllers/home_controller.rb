@@ -10,6 +10,12 @@ class HomeController < ApplicationController
     end
   end
 
+  def viajes
+    @user = current_user
+    @pilot_trips = SectionGroup.where(user_id: @user.id) || []
+    @passenger_trips = SectionGroup.joins(:memberships).where(memberships: { user_id: @user.id }) || []
+  end
+
   private
 
   def require_login
@@ -25,4 +31,5 @@ class HomeController < ApplicationController
   def user_signed_in?
     !current_user.nil?
   end
+
 end

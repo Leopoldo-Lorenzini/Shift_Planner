@@ -10,6 +10,6 @@ Rails.application.routes.draw do
   get 'global', to: 'home#index'
 
   resources :itineraries, only: [:new, :create]
-
+  resources :section_groups
 
 end

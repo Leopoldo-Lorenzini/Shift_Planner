@@ -18,7 +18,7 @@
     .itinerary {
       margin-bottom: 10px;
     }
-    .new-itinerary-btn {
+    .new-itinerary-btn, .new-section-group-btn {
       margin-top: 20px;
     }
   </style>
@@ -45,6 +45,11 @@
             <p><strong>Hora de fin:</strong> <%= itinerary.h_end %></p>
             <p><strong>Lugar de inicio:</strong> <%= itinerary.starting_place&.name || 'No asignado' %></p>
             <p><strong>Lugar de fin:</strong> <%= itinerary.ending_place&.name || 'No asignado' %></p>
+            <% if itinerary.status == 'Piloto' %>
+              <div class="new-section-group-btn">
+                <%= link_to 'Crear nuevo Viaje', new_section_group_path, class: 'btn btn-secondary' %>
+              </div>
+            <% end %>
           </div>
         <% end %>
       <% else %>

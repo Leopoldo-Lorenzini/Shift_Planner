@@ -1,0 +1,51 @@
+<h1>Nuevo Grupo de Secciones</h1>
+
+<%= form_with(model: @section_group, local: true) do |form| %>
+  <% if @section_group.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@section_group.errors.count, "error") %> prohibieron que el grupo de secciones se guardara:</h2>
+
+      <ul>
+        <% @section_group.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :n_seats %>
+    <%= form.text_field :n_seats %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cost %>
+    <%= form.text_field :cost %>
+  </div>
+
+  <div class="field">
+    <%= form.label :h_start %>
+    <%= form.text_field :h_start %>
+  </div>
+
+  <div class="field">
+    <%= form.label :h_end %>
+    <%= form.text_field :h_end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :starting_place_id %>
+    <%= form.collection_select :starting_place_id, Place.all, :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ending_place_id %>
+    <%= form.collection_select :ending_place_id, Place.all, :id, :name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Crear Grupo de Secciones' %>
+  </div>
+<% end %>
+
+<%= link_to 'Volver', section_groups_path %>
