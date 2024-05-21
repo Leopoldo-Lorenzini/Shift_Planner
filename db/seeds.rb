@@ -19,26 +19,36 @@ users = []
 end
 
 # Crear lugares
-places = []
-2.times do |i|
-  places << Place.create(
-    name: "Place #{i+1}"
-  )
+uandes = Place.create(name: "Uandes")
+
+additional_places = ["Copec", "Mall", "Plaza", "Supermercado", "Parque"]
+
+additional_places.each do |place_name|
+  Place.create(name: place_name)
 end
 
 # Crear itinerarios
 10.times do |i|
+  if i.even?
+    starting_place = uandes
+    ending_place = (Place.where.not(id: uandes.id)).sample
+  else
+    starting_place = (Place.where.not(id: uandes.id)).sample
+    ending_place = uandes
+  end
+
   Itinerary.create(
-    status: ["Conductor", "Pasajero"].sample,
-    day: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].sample,
+    status: ["Piloto", "Pasajero"].sample,
+    day: ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"].sample,
     h_start: "07:00",
     h_end: "08:30",
     is_active: [true, false].sample,
     user: users.sample,
-    starting_place: places.sample,
-    ending_place: places.sample
+    starting_place: starting_place,
+    ending_place: ending_place
   )
 end
+
 
 # Crear grupos de secciones
 10.times do |i|
