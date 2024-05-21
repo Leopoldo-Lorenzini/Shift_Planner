@@ -23,7 +23,7 @@ class SectionGroupsController < ApplicationController
   
     def create
       @section_group = SectionGroup.new(section_group_params)
-      @section_group.user = current_user
+      @section_group.user_id = current_user.id
   
       if @itinerary
         @section_group.h_start = @itinerary.h_start
@@ -34,7 +34,8 @@ class SectionGroupsController < ApplicationController
       end
   
       if @section_group.save
-        redirect_to @section_group, notice: 'Viaje creado exitosamente.'
+        redirect_to viaje_path
+        flash[:notice] = 'Viaje creado exitosamente.'
       else
         render :new
       end

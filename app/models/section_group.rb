@@ -4,6 +4,6 @@ class SectionGroup < ApplicationRecord
     belongs_to :ending_place, class_name: 'Place'
 
     has_many :memberships, dependent: :destroy
-    has_many :user, through: :memberships
+    has_many :users, through: :memberships
   end
   
