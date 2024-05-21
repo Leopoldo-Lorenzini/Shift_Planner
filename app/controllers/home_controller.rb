@@ -2,12 +2,20 @@ class HomeController < ApplicationController
   before_action :require_login
 
   def index
+    @user = current_user
+    if @user
+      @itineraries = @user.itineraries
+    else
+      @itineraries = []
+    end
   end
 
   private
 
   def require_login
-    redirect_to login_path, alert: 'Debes iniciar sesión para acceder a esta página' unless user_signed_in?
+    unless user_signed_in?
+      redirect_to login_path, alert: 'Debes iniciar sesión para acceder a esta página'
+    end
   end
 
   def current_user

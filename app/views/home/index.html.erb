@@ -1,2 +1,58 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Perfil de Usuario</title>
+  <style>
+    /* Agrega estilos básicos para la presentación */
+    .profile {
+      margin: 20px;
+    }
+    .profile h1 {
+      font-size: 24px;
+    }
+    .profile p {
+      font-size: 18px;
+    }
+    .itineraries {
+      margin-top: 20px;
+    }
+    .itinerary {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="profile">
+    <h1>Perfil de Usuario</h1>
+    <p><strong>Nombre de usuario:</strong> <%= @user.name %></p>
+    <p><strong>Email:</strong> <%= @user.email %></p>
+    <p><strong>Teléfono:</strong> <%= @user.phone %></p>
+    <p><strong>Descripción:</strong> <%= @user.description %></p>
+    <p><strong>Datos:</strong> <%= @user.data %></p>
+  </div>
+
+  <div class="itineraries">
+    <h2>Itinerarios</h2>
+    <% @itineraries.each do |itinerary| %>
+      <div class="itinerary">
+        <p><strong>Status:</strong> <%= itinerary.status %></p>
+        <p><strong>Día:</strong> <%= itinerary.day %></p>
+        <p><strong>Hora de inicio:</strong> <%= itinerary.h_start %></p>
+        <p><strong>Hora de fin:</strong> <%= itinerary.h_end %></p>
+        <p><strong>Lugar de inicio:</strong> <%= itinerary.starting_place.name %></p>
+        <p><strong>Lugar de fin:</strong> <%= itinerary.ending_place.name %></p>
+      </div>
+    <% end %>
+  </div>
+
+
+  <%= render 'shared/navbar' %>
+
+  <div class="container mt-4">
+    <%= yield %>
+  </div>
+
+</body>
+
+
+</html>
