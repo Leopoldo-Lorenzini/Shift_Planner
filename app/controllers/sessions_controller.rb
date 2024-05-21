@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
       redirect_to root_path, notice: "Inicio de sesión exitoso"
     else
       flash.now[:alert] = "Credenciales inválidas"
-      render :new
+      render :login
     end
   end
 end

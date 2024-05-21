@@ -1,15 +1,17 @@
 <h1>Iniciar sesión</h1>
 
-<%= form_with url: login_path, local: true do |form| %>
+<%= form_with url: login_path do |form| %>
   <div>
     <%= form.label :email %>
     <%= form.text_field :email, name: 'user[email]' %>
   </div>
   <div>
-    <%= form.label :password_digest %>
+    <%= form.label :password %>
     <%= form.password_field :password, name: 'user[password]' %>
   </div>
   <div>
     <%= form.submit "Iniciar sesión" %>
   </div>
 <% end %>
+
+<p>No tienes una cuenta? <%= link_to "Regístrate aquí", new_user_path %></p>
