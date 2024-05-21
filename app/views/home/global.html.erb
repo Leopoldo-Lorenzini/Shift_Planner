@@ -3,23 +3,21 @@
 <%= link_to 'Modo Llegada', global_path(mode: 'llegada'), class: 'btn btn-primary' %>
 <%= link_to 'Modo Salida', global_path(mode: 'salida'), class: 'btn btn-primary' %>
 
-<% if @filtered_groups.any? %>
-  <% @filtered_groups.group_by(&:itinerary_id).each do |itinerary_id, groups| %>
-    <% itinerary = Itinerary.find(itinerary_id) %>
+<% @active_itineraries.each do |itinerary| %>
     <h2>Itinerario: <%= itinerary.day %></h2>
-    <ul>
-      <% groups.each do |group| %>
-        <div class="group-info">
-          <li><strong>Nombre del Grupo:</strong> <%= group.name %></li>
-          <!-- Agrega más detalles del grupo según tus necesidades -->
-        </div>
-      <% end %>
-    </ul>
+    <% if itinerary.status == 'Piloto' %>
+      <p>Eres piloto.</p>
+    <% else %>
+      <ul>
+        <% @filtered_groups.select { |group| group.itinerary_id == itinerary.id }.each do |group| %>
+          <div class="group-info">
+            <li><strong>dia del Grupo:</strong> <%= group.day %></li>
+            <!-- Agrega más detalles del grupo según tus necesidades -->
+          </div>
+        <% end %>
+      </ul>
+    <% end %>
   <% end %>
-<% else %>
-  <p>No se encontraron grupos para mostrar.</p>
-<% end %>
-
 <%= render 'shared/navbar' %>
 
 <div class="container mt-4">

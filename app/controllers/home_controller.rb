@@ -25,6 +25,8 @@ class HomeController < ApplicationController
     elsif @mode == 'salida'
       @filtered_groups = filter_departure_groups
     end
+
+    @active_itineraries = @user.itineraries.where(is_active: true)
   end
 
 
