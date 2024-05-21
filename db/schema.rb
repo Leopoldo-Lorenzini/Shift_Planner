@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_20_170847) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_21_160100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "itineraries", force: :cascade do |t|
     t.string "status"
+    t.boolean "is_active", default: true
     t.string "day"
     t.string "h_start"
     t.string "h_end"
@@ -27,6 +28,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_20_170847) do
     t.index ["ending_place_id"], name: "index_itineraries_on_ending_place_id"
     t.index ["starting_place_id"], name: "index_itineraries_on_starting_place_id"
     t.index ["user_id"], name: "index_itineraries_on_user_id"
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "section_group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["section_group_id"], name: "index_memberships_on_section_group_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
   create_table "places", force: :cascade do |t|
@@ -64,6 +74,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_20_170847) do
   add_foreign_key "itineraries", "places", column: "ending_place_id"
   add_foreign_key "itineraries", "places", column: "starting_place_id"
   add_foreign_key "itineraries", "users"
+  add_foreign_key "memberships", "section_groups"
+  add_foreign_key "memberships", "users"
   add_foreign_key "section_groups", "places", column: "ending_place_id"
   add_foreign_key "section_groups", "places", column: "starting_place_id"
   add_foreign_key "section_groups", "users"

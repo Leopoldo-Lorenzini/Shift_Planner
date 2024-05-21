@@ -3,6 +3,7 @@ User.destroy_all
 Place.destroy_all
 Itinerary.destroy_all
 SectionGroup.destroy_all
+Membership.destroy_all
 
 # Crear usuarios
 users = []
@@ -32,6 +33,7 @@ end
     day: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].sample,
     h_start: "07:00",
     h_end: "08:30",
+    is_active: [true, false].sample,
     user: users.sample,
     starting_place: places.sample,
     ending_place: places.sample
@@ -41,13 +43,6 @@ end
 # Crear grupos de secciones
 10.times do |i|
   SectionGroup.create(
-    n_seats: rand(1..10).to_s,
-    cost: rand(1000..3000).to_s,
-    h_start: "07:00",
-    h_end: "08:30",
-    user: users.sample,
-    starting_place: places.sample,
-    ending_place: places.sample
-  )
-
+    n_seats: rand(1..10)
+)
 end
