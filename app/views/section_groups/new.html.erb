@@ -47,10 +47,10 @@
           </ul>
         </div>
       <% end %>
-
-      <div class="field">
+    
+      <div class="form-group">
         <%= form.label :n_seats, 'Numero de asientos' %>
-        <%= form.text_field :n_seats %>
+        <%= form.select :n_seats, asiento_options, prompt: 'Selecciona la cantidad de asientos disponibles', class: 'form-control' %>
       </div>
 
       <div class="field">
