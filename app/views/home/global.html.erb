@@ -3,6 +3,17 @@
 <head>
   <title>Global</title>
   <style>
+
+    .navbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #f8f9fa; /* Cambia el color de fondo según tu diseño */
+      padding: 10px;
+      box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave */
+    }
+
     .group-info {
       border-radius: 10px;
       border: 1px solid #ccc;
@@ -64,10 +75,16 @@
     </div>
   <% end %>
 
-  <%= render 'shared/navbar' %>
+
 
   <div class="container mt-4">
     <%= yield %>
   </div>
+  
+  <div class="navbar">
+    <%= render 'shared/navbar' %>
+  </div>
+
+
 </body>
 </html>
