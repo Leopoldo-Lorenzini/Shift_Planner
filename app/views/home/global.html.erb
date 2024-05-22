@@ -1,46 +1,73 @@
-<h1>Global</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Global</title>
+  <style>
+    .group-info {
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    
+    /* Estilo adicional para las listas */
+    .group-info ul {
+      margin: 0; /* Elimina el margen predeterminado de las listas */
+      padding: 0; /* Elimina el relleno predeterminado de las listas */
+    }
+    
+    .group-info li {
+      margin-bottom: 5px; /* Ajusta el margen inferior de cada elemento de la lista */
+    }
+  </style>
+</head>
+<body>
+  <h1>Global</h1>
 
-<p>Modo: <%= @current_mode %></p>
-<%= link_to @button_text, global_path(mode: @new_mode), class: 'btn btn-primary' %>
+  <p>Modo: <%= @current_mode %></p>
+  <%= link_to @button_text, global_path(mode: @new_mode), class: 'btn btn-primary' %>
 
-<% @active_itineraries.each do |itinerary| %>
-  <div class="card mb-3">
-    <div class="card-body">
-      <h2 class="card-title">Itinerario: <%= itinerary.day %></h2>
-      <% if itinerary.status == 'Piloto' %>
-        <p class="card-text">Eres piloto.</p>
-      <% else %>
-        <% filtered_groups = filter_groups(itinerary, @current_mode) %>
-        <ul>
+  <% @active_itineraries.each do |itinerary| %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h2 class="card-title">Itinerario: <%= itinerary.day %></h2>
+        <% if itinerary.status == 'Piloto' %>
+          <p class="card-text">Eres piloto.</p>
+        <% else %>
+          <% filtered_groups = filter_groups(itinerary, @current_mode) %>
           <% filtered_groups.each do |group| %>
             <div class="group-info">
-            <li><strong>Día del Grupo:</strong> <%= group.day %></li>
-            <li><strong>Hora de Salida:</strong> <%= group.h_start %></li>
-            <li><strong>Hora de Llegada:</strong> <%= group.h_end %></li>
-            <li><strong>Costo:</strong> <%= group.cost %></li>
-            <li><strong>Lugar de Salida:</strong> <%= group.starting_place.name %></li>
-            <li><strong>Lugar de Llegada:</strong> <%= group.ending_place.name %></li>
-            <p>Personas unidas al grupo: <%= group.users.count %> / <%= group.n_seats %></p>
-              <% if group.users.include?(current_user) %>
-                <p>Ya estás unido a este grupo.</p>
-              <% elsif group.users.count >= group.n_seats.to_i %>
-                <p>Este grupo está lleno.</p>
-              <% else %>
-                <%= form_with url: join_group_path(group), method: :post, local: true do %>
-                  <%= hidden_field_tag :mode, @mode %>
-                  <%= submit_tag 'Unirse al grupo', class: 'btn btn-primary' %>
+              <ul>
+                <li><strong>Día del Viaje:</strong> <%= group.day %></li>
+                <li><strong>Hora de Salida:</strong> <%= group.h_start %></li>
+                <li><strong>Hora de Llegada:</strong> <%= group.h_end %></li>
+                <li><strong>Costo:</strong> <%= group.cost %></li>
+                <li><strong>Lugar de Salida:</strong> <%= group.starting_place.name %></li>
+                <li><strong>Lugar de Llegada:</strong> <%= group.ending_place.name %></li>
+                <li><strong>Personas unidas al viaje:</strong> <%= group.users.count %> / <%= group.n_seats %></li>
+                <% if group.users.include?(current_user) %>
+                  <li>Ya estás unido a este viaje.</li>
+                <% elsif group.users.count >= group.n_seats.to_i %>
+                  <li>Este viaje está lleno.</li>
+                <% else %>
+                  <li>
+                    <%= form_with url: join_group_path(group), method: :post, local: true do %>
+                      <%= hidden_field_tag :mode, @mode %>
+                      <%= submit_tag 'Unirse al viaje', class: 'btn btn-primary' %>
+                    <% end %>
+                  </li>
                 <% end %>
-              <% end %>
+              </ul>
             </div>
           <% end %>
-        </ul>
-      <% end %>
+        <% end %>
+      </div>
     </div>
+  <% end %>
+
+  <%= render 'shared/navbar' %>
+
+  <div class="container mt-4">
+    <%= yield %>
   </div>
-<% end %>
-
-<%= render 'shared/navbar' %>
-
-<div class="container mt-4">
-  <%= yield %>
-</div>
+</body>
+</html>
