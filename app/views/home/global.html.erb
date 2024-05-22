@@ -3,6 +3,10 @@
 <head>
   <title>Global</title>
   <style>
+    body {
+      margin-bottom: 100px; /* Agrega un margen inferior al cuerpo para evitar que el navbar se superponga */
+      font-family: Arial, sans-serif; /* Fuente base */
+    }
 
     .navbar {
       position: fixed;
@@ -14,22 +18,20 @@
       box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave */
     }
 
-    body {
-      margin-bottom: 100px; /* Agrega un margen inferior al cuerpo para evitar que el navbar se superponga */
-    }
-
     .group-info {
       border-radius: 10px;
       border: 1px solid #ccc;
       padding: 10px;
+      margin-bottom: 10px; /* Añadir margen inferior para separar los grupos */
     }
-    
+
     /* Estilo adicional para las listas */
     .group-info ul {
       margin: 0; /* Elimina el margen predeterminado de las listas */
       padding: 0; /* Elimina el relleno predeterminado de las listas */
+      list-style-type: none; /* Elimina el estilo de lista predeterminado */
     }
-    
+
     .group-info li {
       margin-bottom: 5px; /* Ajusta el margen inferior de cada elemento de la lista */
     }
@@ -37,16 +39,37 @@
     /* Estilo adicional para el contenedor principal */
     .main-content {
       margin-bottom: 70px; /* Ajusta el margen inferior para dejar espacio al navbar */
+      padding: 20px; /* Añadir relleno para el contenedor principal */
+    }
+
+    /* Centrar el título y el botón en la parte superior derecha */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      flex-grow: 1;
+      text-align: center;
+      margin: 0;
+    }
+
+    .btn-fixed-width {
+      width: 220px; /* Ajusta este valor según sea necesario */
+      text-align: center;
     }
   </style>
 </head>
 <body>
-
   <div class="main-content">
-    <h1>Global</h1>
+    <div class="header">
+      <h1>Busqueda Global</h1>
+      <%= link_to @button_text, global_path(mode: @new_mode), class: 'btn btn-primary btn-fixed-width' %>
+    </div>
 
     <p>Modo: <%= @current_mode %></p>
-    <%= link_to @button_text, global_path(mode: @new_mode), class: 'btn btn-primary' %>
 
     <% @active_itineraries.each do |itinerary| %>
       <div class="card mb-3">
@@ -87,10 +110,8 @@
     <% end %>
   </div>
 
-</body>
-
-<div class="navbar">
+  <div class="navbar">
     <%= render 'shared/navbar' %>
-</div>
-
+  </div>
+</body>
 </html>
