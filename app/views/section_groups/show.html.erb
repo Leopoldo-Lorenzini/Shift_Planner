@@ -30,6 +30,13 @@
       <% end %>
     </div>
   </div>
+  
+  <% if @section_group.user_id == current_user.id %>
+  <%= link_to 'Eliminar grupo', section_group_path(@section_group), method: :delete, data: { confirm: '¿Estás seguro de que quieres eliminar este grupo?' }, class: 'btn btn-danger' %>
+  <% elsif @members.include?(current_user) %>
+  <%= link_to 'Salir del grupo', leave_section_group_path(@section_group), method: :post, data: { confirm: '¿Estás seguro de que quieres salir de este grupo?' }, class: 'btn btn-warning' %>
+  <% end %>
 
   <%= link_to 'Volver', request.referrer, class: 'btn btn-secondary' %>
+
 </div>
