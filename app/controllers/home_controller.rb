@@ -15,8 +15,17 @@ class HomeController < ApplicationController
 
   def global
     @user = current_user
-    @mode = params[:mode] || 'llegada'
     @active_itineraries = @user.itineraries.where(is_active: true)
+  
+    if params[:mode] == 'llegada'
+      @current_mode = 'llegada'
+      @new_mode = 'salida'
+      @button_text = 'Cambiar a modo Salida'
+    else
+      @current_mode = 'salida'
+      @new_mode = 'llegada'
+      @button_text = 'Cambiar a modo Llegada'
+    end
   end
 
   def join_group
@@ -43,8 +52,8 @@ class HomeController < ApplicationController
     !current_user.nil?
   end
 
-  def filter_groups(itinerary, mode)
-    if mode == 'llegada'
+  def filter_groups(itinerary, current_mode)
+    if current_mode == 'llegada'
       SectionGroup.where(h_end: itinerary.h_end, day: itinerary.day, starting_place_id: itinerary.starting_place_id, ending_place_id: itinerary.ending_place_id)
     else
       SectionGroup.where(h_start: itinerary.h_start, day: itinerary.day, starting_place_id: itinerary.starting_place_id, ending_place_id: itinerary.ending_place_id)
