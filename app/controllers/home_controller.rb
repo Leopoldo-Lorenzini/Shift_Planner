@@ -45,9 +45,9 @@ class HomeController < ApplicationController
 
   def filter_groups(itinerary, mode)
     if mode == 'llegada'
-      SectionGroup.where(h_end: itinerary.h_end, day: itinerary.day)
+      SectionGroup.where(h_end: itinerary.h_end, day: itinerary.day, starting_place_id: itinerary.starting_place_id, ending_place_id: itinerary.ending_place_id)
     else
-      SectionGroup.where(h_start: itinerary.h_start, day: itinerary.day)
+      SectionGroup.where(h_start: itinerary.h_start, day: itinerary.day, starting_place_id: itinerary.starting_place_id, ending_place_id: itinerary.ending_place_id)
     end
   end
 end

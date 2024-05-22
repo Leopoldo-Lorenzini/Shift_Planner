@@ -1,36 +1,57 @@
-<h1>Mis Viajes</h1>
+<h1 class="text-center my-4">Mis Viajes</h1>
 
-<h2>Como Piloto</h2>
-<% if @pilot_trips.any? %>
-  <ul>
-    <% @pilot_trips.each do |trip| %>
-      <li>
-        <strong>Inicio:</strong> <%= trip.starting_place.name %>
-        <strong>Destino:</strong> <%= trip.ending_place.name %>
-        <strong>Hora de inicio:</strong> <%= trip.h_start %>
-        <strong>Hora de fin:</strong> <%= trip.h_end %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>No tienes viajes como piloto.</p>
-<% end %>
+<div class="container">
+  <h2 class="mt-4">Como Piloto</h2>
+  <% if @pilot_trips.any? %>
+    <div class="row">
+      <% @pilot_trips.each do |trip| %>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <%= link_to section_group_path(trip), class: 'text-decoration-none text-dark' do %>
+                <h5 class="card-title">Día: <%= trip.day %></h5>
+                <p class="card-text">
+                  <strong>Inicio:</strong> <%= trip.starting_place.name %><br>
+                  <strong>Destino:</strong> <%= trip.ending_place.name %><br>
+                  <strong>Hora de inicio:</strong> <%= trip.h_start %><br>
+                  <strong>Hora de fin:</strong> <%= trip.h_end %>
+                </p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="alert alert-info">No tienes viajes como piloto.</div>
+  <% end %>
 
-<h2>Como Pasajero</h2>
-<% if @passenger_trips.any? %>
-  <ul>
-    <% @passenger_trips.each do |trip| %>
-      <li>
-        <strong>Inicio:</strong> <%= trip.starting_place.name %>
-        <strong>Destino:</strong> <%= trip.ending_place.name %>
-        <strong>Hora de inicio:</strong> <%= trip.h_start %>
-        <strong>Hora de fin:</strong> <%= trip.h_end %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>No tienes viajes como pasajero.</p>
-<% end %>
+  <h2 class="mt-4">Como Pasajero</h2>
+  <% if @passenger_trips.any? %>
+    <div class="row">
+      <% @passenger_trips.each do |trip| %>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <%= link_to section_group_path(trip), class: 'text-decoration-none text-dark' do %>
+                <h5 class="card-title">Día: <%= trip.day %></h5>
+                <p class="card-text">
+                  <strong>Inicio:</strong> <%= trip.starting_place.name %><br>
+                  <strong>Destino:</strong> <%= trip.ending_place.name %><br>
+                  <strong>Hora de inicio:</strong> <%= trip.h_start %><br>
+                  <strong>Hora de fin:</strong> <%= trip.h_end %>
+                </p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="alert alert-info">No tienes viajes como pasajero.</div>
+  <% end %>
+</div>
+
 
 <%= render 'shared/navbar' %>
 
