@@ -8,6 +8,11 @@ class SectionGroupsController < ApplicationController
     end
   
     def show
+      @section_group = SectionGroup.find(params[:id])
+      @pilot = @section_group.user
+      @members = @section_group.users
+      @members_count = @section_group.users.count
+      
     end
   
     def new
