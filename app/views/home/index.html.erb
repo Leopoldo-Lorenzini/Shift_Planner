@@ -129,16 +129,16 @@
       <p><strong>Nombre de usuario:</strong> <%= @user.name %></p>
       <p><strong>Email:</strong> <%= @user.email %></p>
       <p><strong>Teléfono:</strong> <%= @user.phone %></p>
-      <p><strong>Descripción:</strong> <%= @user.description %></p>
+      <p><strong>Descripción:</strong> <%= @user.description %></p><br>
       <p><strong>Datos Bancarios:</strong><br>
         <% data_lines = @user.data.split(';') %>
         <% name, rut, account_number, account_type, bank, mail = data_lines%>
-        <strong>Nombre:</strong> <%= name %><br>
-        <strong>RUT:</strong> <%= rut %><br>
-        <strong>Tipo de Cuenta:</strong> <%= account_type %><br>
-        <strong>Numero de Cuenta:</strong> <%= account_number %><br>
-        <strong>Banco:</strong> <%= bank %><br>
-        <strong>Email:</strong> <%= mail %><br>
+        <strong>  Nombre:</strong> <%= name %><br>
+        <strong>  RUT:</strong> <%= rut %><br>
+        <strong>  Tipo de Cuenta:</strong> <%= account_type %><br>
+        <strong>  Numero de Cuenta:</strong> <%= account_number %><br>
+        <strong>  Banco:</strong> <%= bank %><br>
+        <strong>  Email:</strong> <%= mail %><br>
 
         <br>
       </p>
