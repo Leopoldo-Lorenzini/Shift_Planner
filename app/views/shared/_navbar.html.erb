@@ -1,23 +1,30 @@
 <div class="navbar fixed-bottom navbar-expand-lg navbar-light bg-lightgray">
   <ul class="navbar-nav mx-auto">
     <li class="nav-item">
-      <%= link_to 'Perfil', root_path, class: 'nav-link text-uppercase text-black p-3 rounded btn-custom' %>
+      <%= link_to root_path, class: 'nav-link text-uppercase text-black p-3 rounded btn-custom' do %>
+        <i class="bi-person-circle" style="font-size: 2rem; color: cornflowerblue;"></i>
+      <% end %>
     </li>
     <li class="nav-item">
-      <%= link_to 'Viajes', viaje_path, class: 'nav-link text-uppercase text-black p-3 rounded btn-custom' %>
+      <%= link_to viaje_path, class: 'nav-link text-uppercase text-black p-3 rounded btn-custom' do %>
+        <i class="bi-car-front-fill" style="font-size: 2rem; color: cornflowerblue;"></i>
+      <% end %>
     </li>
     <li class="nav-item">
-      <%= link_to 'Global', global_path, class: 'nav-link text-uppercase text-black p-3 rounded btn-custom' %>
+      <%= link_to global_path, class: 'nav-link text-uppercase text-black p-3 rounded btn-custom' do %>
+        <i class="bi-globe-americas" style="font-size: 2rem; color: cornflowerblue;"></i>
+      <% end %>
     </li>
     <% if current_user %>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <%= form_tag logout_path, method: :delete, class: 'form-inline' do %>
-            <button type="submit" class="nav-link text-uppercase text-black p-3 rounded btn-custom2">Cerrar sesión</button>
+            <button type="submit" class="nav-link text-uppercase text-black p-3 rounded btn-custom2">
+            <i class="bi-box-arrow-right" style="font-size: 2rem; color: cornflowerblue;"></i>
+            </button>
           <% end %>
         </li>
       </ul>
     <% end %>
   </ul>
 </div>
-
