@@ -24,6 +24,16 @@ class ItinerariesController < ApplicationController
       @itinerary.update(is_active: !@itinerary.is_active)
       redirect_to request.referrer
     end
+
+    def delete
+      @itinerary = Itinerary.find(params[:id])
+      if @itinerary.destroy
+        flash[:success] = "Itinerario eliminado exitosamente."
+      else
+        flash[:error] = "Error al eliminar el itinerario."
+      end
+      redirect_to root_path  
+    end
     
   
     private

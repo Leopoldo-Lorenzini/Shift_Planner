@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   post 'join_group/:id', to: 'home#join_group', as: 'join_group'
 
   post 'itineraries/:id/toggle_active', to: 'itineraries#toggle_active', as: 'toggle_active_itinerary'
-
-  resources :itineraries, only: [:new, :create]
+  get 'itineraries/:id/delete', to: 'itineraries#delete', as: 'delete_itinerary'
+  resources :itineraries, only: [:new, :create, :destroy]
   resources :section_groups
 
 end
