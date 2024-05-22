@@ -130,7 +130,7 @@
       <p><strong>Email:</strong> <%= @user.email %></p>
       <p><strong>Teléfono:</strong> <%= @user.phone %></p>
       <p><strong>Descripción:</strong> <%= @user.description %></p>
-      <p><strong>Datos:</strong>
+      <p><strong>Datos Bancarios:</strong><br>
         <% data_lines = @user.data.split(';') %>
         <% name, rut, account_number, account_type, bank, mail = data_lines.split(',') %>
         <strong>Nombre:</strong> <%= name %><br>
