@@ -51,7 +51,7 @@
     <% @active_itineraries.each do |itinerary| %>
       <div class="card mb-3">
         <div class="card-body">
-          <h2 class="card-title"><%= itinerary.day %> <%= itinerary.h_start %> -- <%= itinerary.h_end %></h2>
+          <h2 class="card-title"><%= itinerary.day %>: <%= itinerary.h_start %> -- <%= itinerary.h_end %></h2>
           <% if itinerary.status == 'Piloto' %>
             <p class="card-text">Eres piloto.</p>
           <% else %>

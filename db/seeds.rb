@@ -39,7 +39,7 @@ end
 
   Itinerary.create(
     status: ["Piloto", "Pasajero"].sample,
-    day: ["lunes", "martes", "miércoles", "jueves", "viernes"].sample,
+    day: ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"].sample,
     h_start: "07:00",
     h_end: "08:30",
     is_active: [true, false].sample,
