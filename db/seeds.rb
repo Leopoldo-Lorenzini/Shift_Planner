@@ -14,7 +14,7 @@ users = []
     password: "123456",
     phone: "123-456-789#{i}",
     description: "Description for user #{i+1}",
-    data: "Data #{i+1}"
+    data: "nombre#{i};11.111.111-#{i};ncuenta#{i};tipocuenta#{i};banco#{i};email#{i}"
   )
 end
 
