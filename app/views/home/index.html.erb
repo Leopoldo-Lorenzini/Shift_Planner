@@ -133,12 +133,13 @@
       <p><strong>Datos:</strong>
         <% data_lines = @user.data.split(';') %>
         <% name, rut, account_number, account_type, bank, mail = data_lines.split(',') %>
-        <strong>Nombre:</strong> <%= name.strip %><br>
-        <strong>RUT:</strong> <%= rut.strip %><br>
-        <strong>Tipo de Cuenta:</strong> <%= account_type.strip %><br>
-        <strong>Numero de Cuenta:</strong> <%= account_number.strip %><br>
-        <strong>Banco:</strong> <%= bank.strip %><br>
-        <strong>Email:</strong> <%= mail.strip %><br>
+        <strong>Nombre:</strong> <%= name %><br>
+        <strong>RUT:</strong> <%= rut %><br>
+        <strong>Tipo de Cuenta:</strong> <%= account_type %><br>
+        <strong>Numero de Cuenta:</strong> <%= account_number %><br>
+        <strong>Banco:</strong> <%= bank %><br>
+        <strong>Email:</strong> <%= mail %><br>
+
         <br>
       </p>
 
