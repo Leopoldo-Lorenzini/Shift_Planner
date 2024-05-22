@@ -30,11 +30,11 @@
       <% end %>
     </div>
   </div>
-  
+
   <% if @section_group.user_id == current_user.id %>
-  <%= link_to 'Eliminar grupo', section_group_path(@section_group), method: :delete, data: { confirm: '¿Estás seguro de que quieres eliminar este grupo?' }, class: 'btn btn-danger' %>
+    <%= link_to 'Eliminar', delete_section_groups_path(@section_group.id), method: :delete, data: { confirm: '¿Estás seguro?' }, class: 'btn btn-sm btn-danger custom-delete-btn' %>
   <% elsif @members.include?(current_user) %>
-  <%= link_to 'Salir del grupo', leave_section_group_path(@section_group), method: :post, data: { confirm: '¿Estás seguro de que quieres salir de este grupo?' }, class: 'btn btn-warning' %>
+  <%= link_to 'Salir del Viaje', leave_section_groups_path(@section_group.id), method: :leave, data: { confirm: '¿Estás seguro?' }, class: 'btn btn-warning' %>
   <% end %>
 
   <%= link_to 'Volver', request.referrer, class: 'btn btn-secondary' %>

@@ -1,6 +1,6 @@
 class SectionGroupsController < ApplicationController
     before_action :require_login
-    before_action :set_section_group, only: [:show, :edit, :update, :destroy]
+    before_action :set_section_group, only: [:show, :edit, :update, :destroy, :delete, :leave]
     before_action :set_itinerary, only: [:new, :create]
   
     def index
@@ -8,11 +8,9 @@ class SectionGroupsController < ApplicationController
     end
   
     def show
-      @section_group = SectionGroup.find(params[:id])
       @pilot = @section_group.user
       @members = @section_group.users
       @members_count = @section_group.users.count
-      
     end
   
     def new
@@ -58,22 +56,32 @@ class SectionGroupsController < ApplicationController
     end
   
     def destroy
-        if @section_group.user_id == current_user.id
-          @section_group.destroy
-          redirect_to root_path, notice: 'Viaje eliminado exitosamente.'
-        else
-          redirect_to section_group_path(@section_group), alert: 'No tienes permiso para eliminar este viaje.'
-        end
+      if @section_group.user_id == current_user.id
+        @section_group.destroy
+        redirect_to root_path, notice: 'Viaje eliminado exitosamente.'
+      else
+        redirect_to section_group_path(@section_group), alert: 'No tienes permiso para eliminar este viaje.'
       end
-    
-      def leave
-        if @members.include?(current_user)
-          @section_group.members.delete(current_user)
-          redirect_to section_groups_path, notice: 'Has salido del viaje exitosamente.'
-        else
-          redirect_to section_group_path(@section_group), alert: 'No eres miembro de este viaje.'
-        end
+    end
+  
+    def delete
+      @section_group = SectionGroup.find(params[:id])
+      if @section_group.destroy
+        flash[:success] = "Viaje eliminado exitosamente."
+      else
+        flash[:error] = "Error al eliminar el viaje."
       end
+      redirect_to root_path
+    end
+  
+    def leave
+      if @section_group.users.include?(current_user)
+        @section_group.users.delete(current_user)
+        redirect_to root_path, notice: 'Has salido del viaje exitosamente.'
+      else
+        redirect_to root_path, alert: 'No eres miembro de este viaje.'
+      end
+    end
   
     private
   
@@ -86,8 +94,8 @@ class SectionGroupsController < ApplicationController
     end
   
     def section_group_params
-        params.require(:section_group).permit(:n_seats, :cost, :h_start, :h_end, :day, :starting_place_id, :ending_place_id,:user)
-    end          
+      params.require(:section_group).permit(:n_seats, :cost, :h_start, :h_end, :day, :starting_place_id, :ending_place_id, :user_id)
+    end
   
     def require_login
       redirect_to login_path, alert: 'Debes iniciar sesión para acceder a esta página' unless user_signed_in?

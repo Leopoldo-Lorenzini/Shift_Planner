@@ -14,9 +14,8 @@ Rails.application.routes.draw do
   get 'itineraries/:id/delete', to: 'itineraries#delete', as: 'delete_itinerary'
   resources :itineraries, only: [:new, :create, :destroy]
 
-  resources :section_groups do
-    member do
-      post 'leave'
-    end
-  end
+  get 'section_groups/:id/delete', to: 'section_groups#delete', as: 'delete_section_groups'
+  get 'section_groups/:id/leave', to: 'section_groups#leave', as: 'leave_section_groups'
+  resources :section_groups
+
 end
