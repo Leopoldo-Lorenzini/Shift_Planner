@@ -59,7 +59,22 @@
     }
     .itinerary {
       margin-bottom: 20px;
+      border: 1px solid #ccc; /* Añadir un borde gris alrededor de cada itinerario */
+      border-radius: 5px; /* Agregar bordes redondeados */
+      padding: 10px; /* Añadir relleno para separar el contenido del borde */
     }
+    .custom-delete-btn {
+      background-color: #dc3545; /* Color de fondo rojo */
+      border-color: #dc3545; /* Color del borde rojo */
+      color: white; /* Color del texto blanco */
+    }
+
+    .custom-delete-btn:hover {
+      background-color: #c82333; /* Color de fondo rojo oscuro al pasar el mouse */
+      border-color: #bd2130; /* Color del borde rojo oscuro al pasar el mouse */
+    }
+
+
     .form-container {
       width: 400px;
       margin: 0 auto;
@@ -127,13 +142,17 @@
               <div class="active-status <%= itinerary.is_active ? 'active' : 'inactive' %>">
                 <%= itinerary.is_active ? 'Activo' : 'Inactivo' %>
               </div>
-              <div class="toggle-active-btn">
-                <%= button_to 'Cambiar estado', toggle_active_itinerary_path(itinerary), method: :post, class: 'btn btn-sm btn-secondary' %>
+              <div class="d-flex align-items-center">
+                <div class="toggle-active-btn mr-2">
+                  <%= button_to 'Cambiar estado', toggle_active_itinerary_path(itinerary), method: :post, class: 'btn btn-sm btn-secondary' %>
+                </div>
+                <%= link_to 'Eliminar', delete_itinerary_path(itinerary.id), method: :delete, data: { confirm: '¿Estás seguro?' }, class: 'btn btn-sm btn-danger custom-delete-btn' %>
+
               </div>
             </div>
-            <table>
+            <table class="mt-2"> <!-- Ajustar la tabla dentro del contenedor de itinerario -->
               <tr>
-                <th colspan="4"><%= itinerary.day %> - <%= itinerary.status %></th>
+                <th colspan="3"><%= itinerary.day %> - <%= itinerary.status %></th>
               </tr>
               <tr>
                 <th>Inicio</th>
@@ -151,14 +170,14 @@
                 <td><%= itinerary.ending_place&.name || 'No asignado' %></td>
               </tr>
             </table>
-            <%= link_to 'Eliminar', delete_itinerary_path(itinerary.id), method: :delete, data: { confirm: '¿Estás seguro?' } %>
             <% if itinerary.status == 'Piloto' %>
-              <div class="new-section-group-btn">
+              <div class="new-section-group-btn mt-2">
                 <%= link_to 'Crear nuevo viaje', new_section_group_path(itinerary_id: itinerary.id), class: 'btn btn-secondary' %>
               </div>
             <% end %>
           </div>
         <% end %>
+        
       <% else %>
         <p>No tienes itinerarios registrados.</p>
       <% end %>
