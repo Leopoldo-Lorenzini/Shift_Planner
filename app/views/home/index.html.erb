@@ -130,7 +130,20 @@
       <p><strong>Email:</strong> <%= @user.email %></p>
       <p><strong>Teléfono:</strong> <%= @user.phone %></p>
       <p><strong>Descripción:</strong> <%= @user.description %></p>
-      <p><strong>Datos:</strong> <%= @user.data %></p>
+      <p><strong>Datos:</strong>
+        <% @user.data.split(';').each do |datum| %>
+          <% name, rut, account_number, account_type, bank, mail = datum.split(',') %>
+          <strong>Nombre:</strong> <%= name.strip %><br>
+          <strong>RUT:</strong> <%= rut.strip %><br>
+          <strong>Tipo de Cuenta:</strong> <%= account_type.strip %><br>
+          <strong>Numero de Cuenta:</strong> <%= account_number.strip %><br>
+          <strong>Banco:</strong> <%= bank.strip %><br>
+          <strong>Email:</strong> <%= mail.strip %><br>
+          <br>
+        <% end %>
+      </p>
+
+
     </div>
 
     <div class="itineraries" id="viaje">
