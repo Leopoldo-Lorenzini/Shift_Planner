@@ -9,4 +9,8 @@ class SessionsController < ApplicationController
       render :login
     end
   end
+  def destroy
+    session[:user_id] = nil
+    redirect_to root_path, notice: "Sesión cerrada correctamente"
+  end
 end
