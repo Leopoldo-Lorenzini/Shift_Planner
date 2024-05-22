@@ -19,6 +19,16 @@ class HomeController < ApplicationController
     @active_itineraries = @user.itineraries.where(is_active: true)
   end
 
+  def join_group
+    @group = SectionGroup.find(params[:id])
+    if @group.users.count < @group.n_seats.to_i
+      @group.users << current_user
+      redirect_to global_path(mode: params[:mode]), notice: 'Te has unido al grupo con éxito.'
+    else
+      redirect_to global_path(mode: params[:mode]), alert: 'El grupo ya está lleno.'
+    end
+  end
+
   private
 
   def require_login

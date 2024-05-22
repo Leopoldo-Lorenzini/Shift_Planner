@@ -13,7 +13,18 @@
       <% filtered_groups.each do |group| %>
         <div class="group-info">
           <li><strong>Nombre del Grupo:</strong> <%= group.day %></li>
+          <p>Personas unidas al grupo: <%= group.users.count %> / <%= group.n_seats %></p>
           <!-- Agrega más detalles del grupo según tus necesidades -->
+          <% if group.users.include?(current_user) %>
+            <p>Ya estás unido a este grupo.</p>
+          <% elsif group.users.count >= group.n_seats.to_i %>
+            <p>Este grupo está lleno.</p>
+          <% else %>
+            <%= form_with url: join_group_path(group), method: :post, local: true do %>
+              <%= hidden_field_tag :mode, @mode %>
+              <%= submit_tag 'Unirse al grupo', class: 'btn btn-primary' %>
+            <% end %>
+          <% end %>
         </div>
       <% end %>
     </ul>

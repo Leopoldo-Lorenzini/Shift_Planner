@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   get 'perfil', to: 'home#index'
   get 'viaje', to: 'home#viajes'
   get 'global', to: 'home#global'
-  
+  post 'join_group/:id', to: 'home#join_group', as: 'join_group'
+
   post 'itineraries/:id/toggle_active', to: 'itineraries#toggle_active', as: 'toggle_active_itinerary'
 
   resources :itineraries, only: [:new, :create]
