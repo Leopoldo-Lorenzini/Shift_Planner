@@ -58,9 +58,22 @@ class SectionGroupsController < ApplicationController
     end
   
     def destroy
-      @section_group.destroy
-      redirect_to section_groups_url, notice: 'Viaje eliminado exitosamente.'
-    end
+        if @section_group.user_id == current_user.id
+          @section_group.destroy
+          redirect_to root_path, notice: 'Viaje eliminado exitosamente.'
+        else
+          redirect_to section_group_path(@section_group), alert: 'No tienes permiso para eliminar este viaje.'
+        end
+      end
+    
+      def leave
+        if @members.include?(current_user)
+          @section_group.members.delete(current_user)
+          redirect_to section_groups_path, notice: 'Has salido del viaje exitosamente.'
+        else
+          redirect_to section_group_path(@section_group), alert: 'No eres miembro de este viaje.'
+        end
+      end
   
     private
   
