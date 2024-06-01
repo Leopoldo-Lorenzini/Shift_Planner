@@ -14,11 +14,13 @@ class CreateUsers < ActiveRecord::Migration[7.1]
       t.string :n_account, default: nil
       t.string :banc, default: nil
       t.string :data_email, default: nil
-      # Valoraciones del usuario                       # Autogenerados
+      # Valoraciones del usuario                        # Autogenerados
       t.integer :driver_review, default:1
       t.integer :n_driver_review, default:0
       t.integer :passenger_review, default:1
       t.integer :n_passenger_review, default:0
+      # Datos administativos
+      t.boolean :first_login, default: false
       # Tiempos de creacion y de modificacion
       t.timestamps
     end

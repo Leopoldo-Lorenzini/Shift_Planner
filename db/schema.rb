@@ -80,6 +80,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_01_174900) do
     t.integer "n_driver_review", default: 0
     t.integer "passenger_review", default: 1
     t.integer "n_passenger_review", default: 0
+    t.boolean "first_login", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
