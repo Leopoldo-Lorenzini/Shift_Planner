@@ -1,8 +1,9 @@
 # Limpia la base de datos
-User.destroy_all
-Place.destroy_all
-Itinerary.destroy_all
+Membership.destroy_all
 SectionGroup.destroy_all
+Itinerary.destroy_all
+Place.destroy_all
+User.destroy_all
 
 # Crear usuarios
 users = []
@@ -10,44 +11,63 @@ users = []
   users << User.create(
     name: "User #{i+1}",
     email: "user#{i+1}@example.com",
-    password: "123456",
+    password_digest: BCrypt::Password.create("123456"),
     phone: "123-456-789#{i}",
     description: "Description for user #{i+1}",
-    data: "Data #{i+1}"
+    data_name: "nombre#{i}",
+    data_rut: "11.111.111-#{i}",
+    n_account: "ncuenta#{i}",
+    account_type: "tipocuenta#{i}",
+    banc: "banco#{i}",
+    data_email: "email#{i}",
+    driver_review: 1,
+    passenger_review: 1
   )
 end
 
 # Crear lugares
-places = []
-2.times do |i|
-  places << Place.create(
-    name: "Place #{i+1}"
-  )
+uandes = Place.create(name: "Uandes")
+
+additional_places = ["Copec", "Mall", "Plaza", "Supermercado", "Parque"]
+
+additional_places.each do |place_name|
+  Place.create(name: place_name)
 end
 
 # Crear itinerarios
 10.times do |i|
+  if i.even?
+    starting_place = uandes
+    ending_place = (Place.where.not(id: uandes.id)).sample
+  else
+    starting_place = (Place.where.not(id: uandes.id)).sample
+    ending_place = uandes
+  end
+
   Itinerary.create(
-    status: ["Conductor", "Pasajero"].sample,
-    day: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].sample,
+    status: ["Piloto", "Pasajero"].sample,
+    day: ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"].sample,
     h_start: "07:00",
     h_end: "08:30",
+    is_active: [true, false].sample,
     user: users.sample,
-    starting_place: places.sample,
-    ending_place: places.sample
+    starting_place: starting_place,
+    ending_place: ending_place
   )
 end
 
 # Crear grupos de secciones
 10.times do |i|
   SectionGroup.create(
-    n_seats: rand(1..10).to_s,
-    cost: rand(1000..3000).to_s,
+    n_seats: rand(1..10),
+    cost: rand(5..50),
     h_start: "07:00",
     h_end: "08:30",
+    day: ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"].sample,
+    description: "Description for section group #{i+1}",
     user: users.sample,
-    starting_place: places.sample,
-    ending_place: places.sample
+    starting_place: Place.all.sample,
+    ending_place: Place.all.sample,
+    itinerary: Itinerary.all.sample
   )
-
 end

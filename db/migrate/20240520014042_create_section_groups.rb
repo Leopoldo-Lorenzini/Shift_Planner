@@ -1,17 +1,13 @@
 class CreateSectionGroups < ActiveRecord::Migration[7.1]
   def change
     create_table :section_groups do |t|
-      # t.string :piloto_id
-      
-      t.string :n_seats
-      t.string :cost
-      t.string :h_start
-      t.string :h_end
+      t.string :n_seats, null: false
+      t.integer :cost,   null: false
+      t.string :h_start, null: false
+      t.string :h_end,   null: false
+      t.string :day,     null: false
+      t.string :description, default: nil
 
-      # t.string :lugar_salida
-      # t.string :lugar_llegada
-      
-      # t.string :inineray_id
 
       t.timestamps
     end

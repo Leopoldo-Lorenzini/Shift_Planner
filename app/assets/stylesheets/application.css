@@ -13,3 +13,18 @@
  *= require_tree .
  *= require_self
  */
+
+ .bg-lightgray {
+    background-color: #dffcdd; /* Puedes ajustar este color al gris claro que prefieras */
+  }
+
+  .btn-custom {
+    background-color: #55ff88;
+    border-color: #1b487a;
+    /* Puedes ajustar otros estilos según sea necesario */
+  }
+  .btn-custom2 {
+    background-color: #dffcdd;
+    border-color: #dbffd7;
+    /* Puedes ajustar otros estilos según sea necesario */
+  }

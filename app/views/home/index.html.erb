@@ -1,2 +1,251 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Perfil de Usuario</title>
+  <style>
+    body {
+      margin-bottom: 100px;
+      font-family: Arial, sans-serif;
+    }
+    .profile-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .profile {
+      background-color: #f4f4f4;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 100%;
+    }
+    .profile h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .profile p {
+      font-size: 18px;
+      margin: 5px 0;
+    }
+    .contact-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .description {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 20px;
+      background-color: #fff;
+    }
+    .description-title {
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+    .bank-info-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .bank-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .bank-info p {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 0;
+      background-color: #fff;
+    }
+    .itineraries {
+      margin: 20px;
+    }
+    .itineraries h2 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .new-itinerary-btn, .new-section-group-btn {
+      margin-top: 20px;
+    }
+    .btn {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: 10px;
+    }
+    .btn-secondary {
+      background-color: #6c757d;
+    }
+    .itinerary {
+      margin-bottom: 20px;
+      border: 1px solid #ccc; /* Añadir un borde gris alrededor de cada itinerario */
+      border-radius: 5px; /* Agregar bordes redondeados */
+      padding: 10px; /* Añadir relleno para separar el contenido del borde */
+    }
+    .custom-delete-btn {
+      background-color: #dc3545; /* Color de fondo rojo */
+      border-color: #dc3545; /* Color del borde rojo */
+      color: white; /* Color del texto blanco */
+    }
+    .custom-delete-btn:hover {
+      background-color: #c82333; /* Color de fondo rojo oscuro al pasar el mouse */
+      border-color: #bd2130; /* Color del borde rojo oscuro al pasar el mouse */
+    }
+    .form-container {
+      width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .form-container input[type="text"],
+    .form-container input[type="password"],
+    .form-container textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 20px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .form-container button {
+      background-color: #4caf50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+    .form-container button:hover {
+      background-color: #45a049;
+    }
+    .active-status {
+      padding: 5px 10px;
+      border-radius: 4px;
+      color: white;
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .active-status.active {
+      background-color: #28a745;
+    }
+    .active-status.inactive {
+      background-color: #dc3545;
+    }
+  </style>
+</head>
+<body>
+  <% if @user %>
+    <div class="profile-container">
+      <div class="profile" id="perfil">
+        <h1><%= @user.name %></h1>
+        <div class="contact-info">
+          <p><strong>Email:</strong> <%= @user.email %></p>
+          <p><strong>Teléfono:</strong> <%= @user.phone %></p>
+        </div>
+        <div class="description-title"><strong>Descripción:</strong></div>
+        <div class="description">
+          <%= @user.description %>
+        </div>
+        <div class="bank-info-title">Datos Bancarios:</div>
+        <div class="bank-info">
+          <% data_lines = @user.data.split(';') %>
+          <% name, rut, account_number, account_type, bank, mail = data_lines %>
+          <p><strong>Nombre:</strong> <%= name %></p>
+          <p><strong>RUT:</strong> <%= rut %></p>
+          <p><strong>Tipo de Cuenta:</strong> <%= account_type %></p>
+          <p><strong>Número de Cuenta:</strong> <%= account_number %></p>
+          <p><strong>Banco:</strong> <%= bank %></p>
+          <p><strong>Email:</strong> <%= mail %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="itineraries" id="viaje">
+      <h2>Itinerarios</h2>
+      <% if @itineraries.any? %>
+        <% @itineraries.each do |itinerary| %>
+          <div class="itinerary">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="active-status <%= itinerary.is_active ? 'active' : 'inactive' %>">
+                <%= itinerary.is_active ? 'Activo' : 'Inactivo' %>
+              </div>
+              <div class="d-flex align-items-center">
+                <div class="toggle-active-btn mr-2">
+                  <%= button_to 'Cambiar estado', toggle_active_itinerary_path(itinerary), method: :post, class: 'btn btn-sm btn-secondary' %>
+                </div>
+                <%= link_to 'Eliminar', delete_itinerary_path(itinerary.id), method: :delete, data: { confirm: '¿Estás seguro?' }, class: 'btn btn-sm btn-danger custom-delete-btn' %>
+              </div>
+            </div>
+            <table class="mt-2"> <!-- Ajustar la tabla dentro del contenedor de itinerario -->
+              <tr>
+                <th colspan="3"><%= itinerary.day %> - <%= itinerary.status %></th>
+              </tr>
+              <tr>
+                <th>Inicio</th>
+                <th>Horario</th>
+                <th>Lugar</th>
+              </tr>
+              <tr>
+                <td>Inicio</td>
+                <td><%= itinerary.h_start %></td>
+                <td><%= itinerary.starting_place&.name || 'No asignado' %></td>
+              </tr>
+              <tr>
+                <td>Fin</td>
+                <td><%= itinerary.h_end %></td>
+                <td><%= itinerary.ending_place&.name || 'No asignado' %></td>
+              </tr>
+            </table>
+            <% if itinerary.status == 'Piloto' %>
+              <div class="new-section-group-btn mt-2">
+                <%= link_to 'Crear nuevo viaje', new_section_group_path(itinerary_id: itinerary.id), class: 'btn btn-secondary' %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      <% else %>
+        <p>No tienes itinerarios registrados.</p>
+      <% end %>
+      <div class="new-itinerary-btn">
+        <%= link_to 'Crear nuevo itinerario', new_itinerary_path, class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% else %>
+    <p>No se ha encontrado el usuario.</p>
+  <% end %>
+
+  <%= render 'shared/navbar' %>
+
+  <div class="container mt-4">
+    <%= yield %>
+  </div>
+
+</body>
+</html>

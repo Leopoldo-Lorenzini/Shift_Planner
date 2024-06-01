@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="card my-4">
+    <div class="card-body">
+      <h1 class="card-title">Detalles del Viaje</h1>
+      <p class="card-text"><strong>Asientos:</strong> <%= @members_count %>/<%= @section_group.n_seats %></p>
+      <p class="card-text"><strong>Costo:</strong> <%= @section_group.cost %></p>
+    </div>
+  </div>
+
+  <div class="card my-4">
+    <div class="card-body">
+      <h2 class="card-title">Información del Piloto</h2>
+      <p class="card-text"><strong>Nombre:</strong> <%= @pilot.name %></p>
+      <p class="card-text"><strong>Teléfono:</strong> <%= @pilot.phone %></p>
+      <p class="card-text"><strong>Email:</strong> <%= @pilot.email %></p>
+    </div>
+  </div>
+
+  <div class="card my-4">
+    <div class="card-body">
+      <h2 class="card-title">Pasajeros</h2>
+      <% if @members.any? %>
+        <ul class="list-group list-group-flush">
+          <% @members.each do |member| %>
+            <li class="list-group-item"><%= member.name %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="card-text">No hay pasajeros.</p>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @section_group.user_id == current_user.id %>
+    <%= link_to 'Eliminar', delete_section_groups_path(@section_group.id), method: :delete, data: { confirm: '¿Estás seguro?' }, class: 'btn btn-sm btn-danger custom-delete-btn' %>
+  <% elsif @members.include?(current_user) %>
+  <%= link_to 'Salir del Viaje', leave_section_groups_path(@section_group.id), method: :leave, data: { confirm: '¿Estás seguro?' }, class: 'btn btn-warning' %>
+  <% end %>
+
+  <%= link_to 'Volver', request.referrer, class: 'btn btn-secondary' %>
+
+</div>

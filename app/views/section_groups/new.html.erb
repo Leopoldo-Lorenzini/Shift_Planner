@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nuevo Grupo de Secciones</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 600px; /* Ajusta el ancho máximo según sea necesario */
+      margin: 0 auto;
+    }
+    .field {
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: block;
+    }
+    input[type="text"], .btn {
+      width: 100%;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      color: white;
+    }
+    .readonly {
+      background-color: #f0f0f0; /* Fondo gris para campos de solo lectura */
+      cursor: not-allowed; /* Cambia el cursor para indicar que no es editable */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-4">Nuevo Viaje</h1>
+
+    <%= form_with(model: @section_group, local: true) do |form| %>
+      <% if @section_group.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@section_group.errors.count, "error") %> prohibieron que el viaje se guardara:</h2>
+
+          <ul>
+            <% @section_group.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    
+      <div class="form-group">
+        <%= form.label :n_seats, 'Numero de asientos' %>
+        <%= form.select :n_seats, asiento_options, prompt: 'Selecciona la cantidad de asientos disponibles', class: 'form-control' %>
+      </div>
+
+      <div class="field">
+        <%= form.label :cost, 'Precio' %>
+        <%= form.text_field :cost %>
+      </div>
+
+      <div class="field">
+        <%= form.label :h_start, 'Hora de inicio' %>
+        <%= form.text_field :h_start, value: @section_group.h_start, readonly: true, class: 'readonly' %>
+      </div>
+
+      <div class="field">
+        <%= form.label :h_end, 'Hora de llegada' %>
+        <%= form.text_field :h_end, value: @section_group.h_end, readonly: true, class: 'readonly' %>
+      </div>
+
+      <div class="field">
+        <%= form.label :day, 'Dia de la semana' %>
+        <%= form.text_field :day, value: @section_group.day, readonly: true, class: 'readonly' %>
+      </div>
+
+      <div class="field">
+        <%= form.label :starting_place_id, 'Punto de partida' %>
+        <%= form.text_field :starting_place_name, value: Place.find(@section_group.starting_place_id).name, readonly: true, class: 'readonly' %>
+        <%= form.hidden_field :starting_place_id, value: @section_group.starting_place_id %>
+      </div>
+
+      <div class="field">
+        <%= form.label :ending_place_id, 'Destino' %>
+        <%= form.text_field :ending_place_name, value: Place.find(@section_group.ending_place_id).name, readonly: true, class: 'readonly' %>
+        <%= form.hidden_field :ending_place_id, value: @section_group.ending_place_id %>
+      </div>
+
+      <div class="actions">
+        <%= form.submit 'Crear Viaje', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= render 'shared/navbar' %>
+
+  <div class="container mt-4">
+    <%= yield %>
+  </div>
+</body>
+</html>
