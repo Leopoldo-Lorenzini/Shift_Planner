@@ -2,10 +2,10 @@ class CreateUsers < ActiveRecord::Migration[7.1]
   def change
     create_table :users do |t|
       # Datos del usuario minimos
-      t.string :name, null: falase                # Revisar Devise    # Obligatorio
-      t.string :email, null: falase               # Revisar Devise    # Obligatorio
-      t.string :password_digest, null: falase     # Revisar Devise    # Obligatorio
-      t.string :phone, null: falase                                   # Obligatorio
+      t.string :name, null: false                # Revisar Devise    # Obligatorio
+      t.string :email, null: false               # Revisar Devise    # Obligatorio
+      t.string :password_digest, null: false     # Revisar Devise    # Obligatorio
+      t.string :phone, null: false                                   # Obligatorio
       t.string :description, default: nil
       # Datos bancarios para transferencia              # Nesesarios para transferencias como piloto
       t.string :data_name, default: nil
